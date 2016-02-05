@@ -7,9 +7,10 @@
 //
 
 #import "FISTableViewController.h"
+#import "FISStudent.h"
 
 @interface FISTableViewController ()
-
+@property (nonatomic, strong) NSArray *students;
 @end
 
 @implementation FISTableViewController
@@ -17,31 +18,44 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    FISStudent *andy = [[FISStudent alloc] initWithName:@"Andy" favoriteThings:@[@"Campbell's Soup", @"Screenprinting", @"Liz Taylor", @"Black skinny jeans", @"Sunglasses"]];
+    FISStudent *anna = [[FISStudent alloc] initWithName:@"Anna" favoriteThings:@[@"Fur coats", @"Fur hats", @"Fur boots", @"Fur mittens", @"Sunglasses", @"Scrambled eggs and salmon"]];
+    FISStudent *zachary = [[FISStudent alloc] initWithName:@"Zachary" favoriteThings:@[@"Chick Fil A", @"Real estate", @"Travel", @"Tacky t-shirts"]];
+    [self setStudents:@[andy, anna, zachary]];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    
+    return (NSInteger)self.students.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    FISStudent *student = [self.students objectAtIndex:(NSUInteger)section];
+    return student.name;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    
+    return (NSInteger)((FISStudent *)[self.students objectAtIndex:(NSUInteger)section]).favoriteThings.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expandingCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    FISStudent *student = [self.students objectAtIndex:(NSUInteger)indexPath.section];
+    NSString *favoriteThing = [student.favoriteThings objectAtIndex:(NSUInteger)indexPath.row];
+    [cell.textLabel setText:favoriteThing];
     
     return cell;
 }
-*/
+
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 1;
+}
 
 /*
 // Override to support conditional editing of the table view.
