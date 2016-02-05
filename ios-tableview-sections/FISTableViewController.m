@@ -18,9 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    FISStudent *andy = [[FISStudent alloc] initWithName:@"Andy" favoriteThings:@[@"Campbell's Soup", @"Screenprinting", @"Liz Taylor", @"Black skinny jeans", @"Sunglasses"]];
-    FISStudent *anna = [[FISStudent alloc] initWithName:@"Anna" favoriteThings:@[@"Fur coats", @"Fur hats", @"Fur boots", @"Fur mittens", @"Sunglasses", @"Scrambled eggs and salmon"]];
-    FISStudent *zachary = [[FISStudent alloc] initWithName:@"Zachary" favoriteThings:@[@"Chick Fil A", @"Real estate", @"Travel", @"Tacky t-shirts"]];
+    FISStudent *andy = [[FISStudent alloc] initWithName:@"Andy" favoriteFood:@"Campbell's Soup" color:@"Silver" musicalArtist:@"Velvet Underground" game:@"Staring contest"];
+    FISStudent *anna = [[FISStudent alloc] initWithName:@"Anna" favoriteFood:@"Scrambled eggs and salmon" color:@"Violet" musicalArtist:@"Taylor Swift" game:@"Poker"];
+    FISStudent *zachary = [[FISStudent alloc] initWithName:@"Zachary" favoriteFood:@"Chick Fil A" color:@"Neon" musicalArtist:@"Haim" game:@"Clue"];
     [self setStudents:@[andy, anna, zachary]];
 }
 
@@ -39,15 +39,23 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return (NSInteger)((FISStudent *)[self.students objectAtIndex:(NSUInteger)section]).favoriteThings.count;
+//    FISStudent *student = [self.students objectAtIndex:(NSUInteger)section];
+//    return (NSInteger)student.favoriteThings.count;
+    
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expandingCell" forIndexPath:indexPath];
     
     FISStudent *student = [self.students objectAtIndex:(NSUInteger)indexPath.section];
-    NSString *favoriteThing = [student.favoriteThings objectAtIndex:(NSUInteger)indexPath.row];
-    [cell.textLabel setText:favoriteThing];
+//    NSString *favoriteThing = [student.favoriteThings objectAtIndex:(NSUInteger)indexPath.row];
+//    [cell.textLabel setText:favoriteThing];
+    
+    if (indexPath.row == 0) [cell.textLabel setText:[NSString stringWithFormat:@"Food: %@", student.favoriteFood]];
+    else if (indexPath.row == 1) [cell.textLabel setText:[NSString stringWithFormat:@"Color: %@", student.favoriteColor]];
+    else if (indexPath.row == 2) [cell.textLabel setText:[NSString stringWithFormat:@"Musical Artist: %@", student.favoriteMusicalArtist]];
+    else if (indexPath.row == 3) [cell.textLabel setText:[NSString stringWithFormat:@"Game: %@", student.favoriteGame]];
     
     return cell;
 }
