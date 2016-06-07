@@ -11,10 +11,18 @@
 @interface FISStudent : NSObject
 
 @property (nonatomic) NSString *name;
+@property (nonatomic) NSString *favoriteFood;
+@property (nonatomic) NSString *favoriteColor;
+@property (nonatomic) NSString *favoriteMusicalArtist;
+@property (nonatomic) NSString *favoriteGame;
 @property (nonatomic) NSArray *favoriteThings;
 
 -(instancetype)init;
 
--(instancetype)initWithName:(NSString *)name;
+-(instancetype)initWithName:(NSString *)name
+               favoriteFood:(NSString *)favoriteFood
+              favoriteColor:(NSString *)favoriteColor
+      favoriteMusicalArtist:(NSString *)favoriteMusicalArtist
+               favoriteGame:(NSString *)favoriteGame;
 
 @end
