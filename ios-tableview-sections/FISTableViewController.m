@@ -7,6 +7,7 @@
 //
 
 #import "FISTableViewController.h"
+#import "FISStudent.h"
 
 @interface FISTableViewController ()
 
@@ -16,7 +17,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    FISStudent *student1 = [[FISStudent alloc] initWithName:@"Moe"];
+    student1.favoriteThings = [NSArray arrayWithObjects:@"slapping", @"bossing", @"bad hair", nil];
+    FISStudent *student2 = [[FISStudent alloc] initWithName:@"Larry"];
+    student2.favoriteThings = [NSArray arrayWithObjects:@"robes", @"dry bars", @"stripes", nil];
+    FISStudent *student3 = [[FISStudent alloc] initWithName:@"Curly"];
+    student3.favoriteThings = [NSArray arrayWithObjects:@"abuse", @"squeeling", @"band-aids", nil];
+    self.students = [NSArray arrayWithObjects:student1, student2, student3, nil];
 }
 
 #pragma mark - Table view data source
