@@ -7,6 +7,7 @@
 //
 
 #import "FISTableViewController.h"
+#import "FISStudent.h"
 
 @interface FISTableViewController ()
 
@@ -16,33 +17,58 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    FISStudent *student1 = [[FISStudent alloc] initWithName:@"Moe" favoriteFood:@"ham" favoriteColor:@"blue" favoriteMusicalArtist:@"Bach" favoriteGame:@"twister"];
+    FISStudent *student2 = [[FISStudent alloc] initWithName:@"Larry" favoriteFood:@"cheese" favoriteColor:@"red" favoriteMusicalArtist:@"Mozart" favoriteGame:@"hearts"];
+    FISStudent *student3 = [[FISStudent alloc] initWithName:@"Curly" favoriteFood:@"bread" favoriteColor:@"green" favoriteMusicalArtist:@"Handel" favoriteGame:@"uno"];
+    self.students = [NSArray arrayWithObjects:student1, student2, student3, nil];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return [self.students count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    FISStudent *student = [self.students objectAtIndex:section];
+    return [student.favoriteThings count];
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    NSString *SimpleIdentifier = @"SimpleIdentifier";
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SimpleIdentifier];
     
-    // Configure the cell...
-    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SimpleIdentifier];
+    }
+    FISStudent *student = [self.students objectAtIndex:indexPath.section];
+
+    NSString *labelText = @"";
+    if (indexPath.row == 0) {
+        labelText = [NSString stringWithFormat:@"Food: %@", student.favoriteFood];
+    } else if (indexPath.row == 1) {
+        labelText = [NSString stringWithFormat:@"Color: %@", student.favoriteColor];
+    } else if (indexPath.row == 2) {
+        labelText = [NSString stringWithFormat:@"Musical Artist: %@", student.favoriteMusicalArtist];
+    } else if (indexPath.row == 3) {
+        labelText = [NSString stringWithFormat:@"Game: %@", student.favoriteGame];
+    }
+    cell.textLabel.text = labelText;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", indexPath.row];
     return cell;
 }
-*/
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    FISStudent *student = [self.students objectAtIndex:section];
+    return student.name;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 3;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
