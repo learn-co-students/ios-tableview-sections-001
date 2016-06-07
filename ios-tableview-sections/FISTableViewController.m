@@ -45,10 +45,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SimpleIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SimpleIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SimpleIdentifier];
     }
     FISStudent *student = [self.students objectAtIndex:indexPath.section];
     cell.textLabel.text = student.favoriteThings[indexPath.row];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", indexPath.row];
     return cell;
 }
 
